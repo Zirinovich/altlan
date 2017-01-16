@@ -4,9 +4,13 @@ import ReactDom from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 import routes from './routes';
 
+import {Provider} from 'react-redux';
+import configureStore from './redux/configureStore';
+
 const app = express();
 
 app.use((req, res) => {
+    const store = configureStore();
 
     match({routes, location: req.url}, (error, redirectLocation, renderProps) => { // функция match принимает в качестве первого параметра JavaScript объект с ключами routes и location { routes: routes, location: req.url}
         if (redirectLocation) { // Если необходимо сделать redirect
@@ -21,7 +25,11 @@ app.use((req, res) => {
             return res.status(404).send('Not found');
         }
 
-        const componentHTML = ReactDom.renderToString(<RouterContext {...renderProps} />);
+        const componentHTML = ReactDom.renderToString(
+            <Provider store={store}>
+                <RouterContext {...renderProps} />
+            </Provider>
+        );
 
         return res.end(renderHTML(componentHTML));
     });
