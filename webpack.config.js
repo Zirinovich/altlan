@@ -1,11 +1,11 @@
 global.Promise         = require('bluebird');
 
 var webpack            = require('webpack');
-var path               = require('path');
+var path               = require('path'); // node.js core-модуль для работы с путями операционной системы
 var ExtractTextPlugin  = require('extract-text-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var publicPath         = 'http://localhost:8050/public/assets';
+var publicPath         = 'http://localhost:8080/public/assets';
 var cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
 var jsName             = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
 
