@@ -11,6 +11,7 @@ const app = express();
 
 app.use((req, res) => {
     const store = configureStore();
+    const state  = store.getState(); // функция возвращает актуальное глобальное состояние хранилища
 
     match({routes, location: req.url}, (error, redirectLocation, renderProps) => { // функция match принимает в качестве первого параметра JavaScript объект с ключами routes и location { routes: routes, location: req.url}
         if (redirectLocation) { // Если необходимо сделать redirect
@@ -31,14 +32,14 @@ app.use((req, res) => {
             </Provider>
         );
 
-        return res.end(renderHTML(componentHTML));
+        return res.end(renderHTML(componentHTML, state)); // вторым параметром передаем состояние текущего store (серверный рендер)
     });
 
 });
 
 const assetUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:8080' : '/';
 
-function renderHTML(componentHTML) {
+function renderHTML(componentHTML, initialState) {
     return `
     <!DOCTYPE html>
       <html>
@@ -47,6 +48,9 @@ function renderHTML(componentHTML) {
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Hello React</title>
           <link rel="stylesheet" href="${assetUrl}/public/assets/styles.css">
+          <script type="application/javascript">
+            window.REDUX_INITIAL_STATE = ${JSON.stringify(initialState)};
+          </script>
       </head>
       <body>
         <div id="react-view">${componentHTML}</div>

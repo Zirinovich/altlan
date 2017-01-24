@@ -4,11 +4,13 @@ import App from 'components/App';
 import CounterPage from 'components/CounterPage';
 import HelloWorldPage from 'components/HelloWorldPage';
 import TimePage from 'components/TimePage';
+import LoginPage from 'components/LoginPage'
 
 export default (
     <Route component={App} path='/'>
         <IndexRoute component={HelloWorldPage} />
         <Route component={CounterPage} path='counters' />
         <Route component={TimePage} path='time' />
+        <Route component={LoginPage} path='login'/>
     </Route>
 );

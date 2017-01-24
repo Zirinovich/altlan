@@ -32,6 +32,9 @@ class App extends Component {
                             <LinkContainer to='/counters'>
                                 <NavItem>Счетчики</NavItem>
                             </LinkContainer>
+                            <LinkContainer to='/login'>
+                                <NavItem>Вход</NavItem>
+                            </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
