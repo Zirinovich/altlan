@@ -6,13 +6,13 @@ import {timeRequest} from 'redux/actions/timeActions';
 
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
-    //loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
     time: PropTypes.any
 };
 
 class TimePage extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.handleClick = this.handleClick.bind(this);
     }
@@ -42,4 +42,4 @@ function mapStateToProps(state) {
 
 TimePage.propTypes = propTypes;
 
-export default connect()(TimePage);
+export default connect(mapStateToProps)(TimePage);

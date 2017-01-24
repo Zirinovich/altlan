@@ -18,6 +18,6 @@ export function timeRequest() {
     return (dispatch) => {
         dispatch(timeRequestStarted());
 
-        return setTimeout(() => dispatch(timeRequestFinished(Date.now()), 100000)); // Изображаем network latency :)
+        return setTimeout(() => dispatch(timeRequestFinished(Date.now())), 1000); // Изображаем network latency :)
     };
 }
