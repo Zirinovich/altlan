@@ -15,7 +15,11 @@ function loginRequestError(errors) {
 }
 
 export function loginRequest() {
-    return (dispatch) => {
+    return (values) => {
+
+
+
+
         dispatch(loginRequestStarted());
     }
 }

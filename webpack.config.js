@@ -16,7 +16,11 @@ var plugins = [
             NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
         }
     }),
-    new ExtractTextPlugin(cssName)
+    new ExtractTextPlugin(cssName),
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        _: 'lodash'
+    })
 ];
 
 if (process.env.NODE_ENV === 'production') {
