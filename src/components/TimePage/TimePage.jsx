@@ -18,8 +18,8 @@ class TimePage extends Component {
     }
 
     handleClick() {
-        this.props.dispatch(timeRequest());
-    }
+        this.props.dispatch(timeRequest()); // передача сюда функции возможна благодаря использованию модуля 'redux-thunk'
+    } // https://github.com/rajdee/redux-in-russian/blob/master/docs/advanced/AsyncFlow.md
 
     render() {
         const {loading, time} = this.props;

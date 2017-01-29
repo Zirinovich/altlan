@@ -15,7 +15,7 @@ function FieldGroup({id, label, help, ...props}) {
         </FormGroup>
     );
 }
-
+/*Не используется, храню как пример*/
 class LoginPage extends Component {
 
     render() {

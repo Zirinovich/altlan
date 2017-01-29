@@ -1,4 +1,5 @@
 import express  from 'express';
+import * as bodyParser from 'body-parser';
 import React    from 'react';
 import ReactDom from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
@@ -11,7 +12,7 @@ const app = express();
 
 app.use((req, res) => {
     const store = configureStore();
-    const state  = store.getState(); // функция возвращает актуальное глобальное состояние хранилища
+    const state = store.getState(); // функция возвращает актуальное глобальное состояние хранилища
 
     match({routes, location: req.url}, (error, redirectLocation, renderProps) => { // функция match принимает в качестве первого параметра JavaScript объект с ключами routes и location { routes: routes, location: req.url}
         if (redirectLocation) { // Если необходимо сделать redirect
