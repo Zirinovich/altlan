@@ -1,5 +1,4 @@
 import express  from 'express';
-import * as bodyParser from 'body-parser';
 import React    from 'react';
 import ReactDom from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
@@ -8,7 +7,27 @@ import routes from './routes';
 import {Provider} from 'react-redux';
 import configureStore from './redux/configureStore';
 
+import * as bodyParser from 'body-parser';
+
 const app = express();
+
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.post('/api/login', (req, res)=>{
+    console.log("запрос в API");
+    const login = req.body.login;
+    const password = req.body.password;
+    console.log(req.body);
+
+    if (login + password === "qwe123") {
+        res.json({success: true});
+    }
+    else {
+        // res.statusCode = 500;
+        res.json({error: "Failed to authenticate!"});
+    }
+});
 
 app.use((req, res) => {
     const store = configureStore();

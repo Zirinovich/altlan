@@ -5,7 +5,7 @@ import cors from 'cors';
 
 const app = express();
 
-// app.use(bodyParser.json);
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 let apiRouter = express.Router();
@@ -20,9 +20,8 @@ apiRouter.post('/login', (req, res) => {
     console.log("запрос в API");
     const login = req.body.login;
     const password = req.body.password;
-    console.log(login+password);
+    console.log(req.body);
 
-    res.setHeader()
     if (login + password === "qwe123") {
         res.json({success: true});
     }

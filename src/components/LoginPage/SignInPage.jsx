@@ -1,32 +1,25 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
-import { browserHistory } from 'react-router';
-import fetch from 'isomorphic-fetch';
+import {browserHistory} from 'react-router';
+import 'isomorphic-fetch';
+import FormData from 'isomorphic-form-data';
+import promise from 'es6-promise';
 
 import Button from 'react-bootstrap/lib/Button';
 
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 
+// promise.polyfill();
+
 class Form extends Component {
     render() {
         const {handleSubmit, reset} = this.props;
 
-        const submit = (values) => {
-            fetch("http://localhost:3002/api/login",{
-                method: 'POST',
-                mode: 'cors',
-                body: `login=${values.login}&password=${values.password}`,
-            }).then((data)=>{
-                console.log(data.json());
-            });
-
-            //browserHistory.push('/');
-        };
 
         return (
             <div>
                 <PageHeader>Authenticate please</PageHeader>
-                <form onSubmit={handleSubmit(submit)}>
+                <form method="POST">
                     <Field name="login" component="input" type="text"/>
                     <Field name="password" component="input" type="text"/>
                     <div>
