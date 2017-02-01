@@ -7,7 +7,7 @@ const users = {
     password: '123'
 };
 
-router.post('/signin', (req, res) => {
+router.post('/login', (req, res) => {
     const login = req.body.login;
     const password = req.body.password;
     console.log(req.body);
