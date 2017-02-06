@@ -1,4 +1,5 @@
 import express from 'express';
+import {mustAuthenticate, login} from 'api';
 
 export const router = express.Router();
 
@@ -7,27 +8,30 @@ const users = {
     password: '123'
 };
 
-router.post('/login', (req, res) => {
-    const login = req.body.login;
-    const password = req.body.password;
-    console.log(req.body);
+// router.post('/login', (req, res) => {
+//     const login = req.body.login;
+//     const password = req.body.password;
+//     console.log(req.body);
+//
+//     if (!login && !password) {
+//         return res.status(400).send("You must send the username and the password");
+//     }
+//
+//     const exists = users.username === login && users.password === password;
+//     if (!exists) {
+//         return res.status(401).send("The username or password don't match");
+//     }
+//
+//     res.status(201).send({id_token: "must be new token"}); // TODO: реализовать токены и сессии
+// });
 
-    if (!login && !password) {
-        return res.status(400).send("You must send the username and the password");
-    }
+router.post('/login',login);
 
-    const exists = users.username === login && users.password === password;
-    if (!exists) {
-        return res.status(401).send("The username or password don't match");
-    }
+// router.post('/signup', (res, req) => {
+//     res.status(201).send({id_token: "must be new token"}); // TODO: сделать регистрацию.
+// });
 
-    res.status(201).send({id_token: "must be new token"}); // TODO: реализовать токены и сессии
-});
-
-router.post('/signup', (res, req) => {
-    res.status(201).send({id_token: "must be new token"}); // TODO: сделать регистрацию.
-});
-
+router.all('/*', mustAuthenticate);
 
 /*// NOTE: middleware that is specific to this router
  router.use(function timeLog(req, res, next) {

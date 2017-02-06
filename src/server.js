@@ -8,13 +8,22 @@ import {Provider} from 'react-redux';
 import configureStore from './redux/configureStore';
 
 import * as bodyParser from 'body-parser';
+import {default as cookieParser} from 'cookie-parser';
+import session from 'express-session';
+
+import passport from 'api';
 
 import {router as apiRouter} from 'routesAPI';
 
 const app = express();
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(session({secret:'yaouyahanSecretWord'}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api',apiRouter);
 
