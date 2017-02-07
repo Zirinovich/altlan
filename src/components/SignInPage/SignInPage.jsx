@@ -5,7 +5,7 @@ class _SignInPage extends Component {
     render() {
         return (
             <div>
-                <SignInForm action="/api/login" method="POST"/>
+                <SignInForm action="/loginapi" method="POST"/>
             </div>
         );
     }

@@ -1,41 +1,40 @@
-import {passport} from './authPassportStrategy';
+import {initPassport} from './auth/authPassport';
+import {default as passport} from 'passport';
 
+export {initPassport as init};
 
-
-export function login(req, res, next) {
-    passport.authenticate('local', (err, user, info)=>{
-        console.log("error is - " + JSON.stringify(err));
-        console.log("user are - " + JSON.stringify(user));
-        console.log("next is - " + JSON.stringify(next));
-        console.log("more is - " + JSON.stringify(info));
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
-        req.logIn(user, function(err) {
-            if (err) { return next(err); }
-            return res.redirect('/'); // NOTE: это тоже как то не очень, надо направлять туда, куда видимо обращался
-        });
-    })(req, res, next);
-}
-
-export function logout(req, res){
+export function logout(req, res) {
     req.logout();
     res.redirect('/')
 }
 
+export function loginAPI(req, res, next) {
+    passport.authenticate('local',(err, user, info)=>{ // err - ошибка в случае ошибки модулей; user - {obj}|false; info - информация если юзер false
+        if(err){
+            return res.status(500).send(JSON.stringify(err))
+        }
+        if(!user){
+            // return res.status(401).send(info.message);
+            return res.redirect('/login');
+        }
+        return res.redirect('/api/test');
+    })(req, res, next);
+
+
+    // const login = req.body.login;
+    // const password = req.body.password;
+    // console.log(req.body);
+
+}
+
+// middleware
 export function mustAuthenticate(req, res, next) {
     // NOTE: вместо редиректа, возможно надо выставить статус код ошибки и ответ, типа неавторизован
-    console.log("Вызов функции must authenticate!");
-    console.log("mustAuth middle next is - " + JSON.stringify(next));
     req.isAuthenticated() ? next() : res.redirect('/login');
 }
 
-export function mustAuthenticateAPI(req, res, next){
-    console.log("Вызов функции mustAuthenticateAPI!");
-    if (req.isAuthenticated()){
-        return next();
-    }
-    req.isAuthenticated() ? next() : res.redirect('/login');
+// middleware
+export function mustAuthenticateAPI(req, res, next) {
+    console.log("Вызов функции mustAuthenticateAPI! isAuth=" + req.isAuthenticated());
+    req.isAuthenticated() ? next() : res.status(401).json({message:"MUSTAUTH Неверная комбинация 'логин/пароль'!"});
 }
-
-
-export default passport;

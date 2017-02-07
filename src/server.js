@@ -10,22 +10,36 @@ import configureStore from './redux/configureStore';
 import * as bodyParser from 'body-parser';
 import {default as cookieParser} from 'cookie-parser';
 import session from 'express-session';
+import {default as reddis} from 'connect-redis';
 
-import passport from 'api';
+import {default as passport} from 'passport';
+import {init, loginAPI} from 'api';
 
 import {router as apiRouter} from 'routesAPI';
 
+const RedisStore = reddis(session);
 const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(session({secret:'yaouyahanSecretWord'}));
+init(app);
+app.use(session({
+    store: new RedisStore({
+        url: "redis://localhost:6379"
+    }),
+    secret: 'yaouyahanSecretWord',
+    cookie: { secure: false, maxAge:86400000 },
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api',apiRouter);
+
+app.use('/loginAPI', loginAPI);
+app.use('/API', apiRouter);
 
 app.use((req, res) => {
     const store = configureStore();

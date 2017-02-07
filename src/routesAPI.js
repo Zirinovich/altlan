@@ -1,12 +1,7 @@
 import express from 'express';
-import {mustAuthenticate, login} from 'api';
+import {mustAuthenticateAPI, loginAPI} from 'api';
 
 export const router = express.Router();
-
-const users = {
-    username: 'qwe',
-    password: '123'
-};
 
 // router.post('/login', (req, res) => {
 //     const login = req.body.login;
@@ -25,13 +20,16 @@ const users = {
 //     res.status(201).send({id_token: "must be new token"}); // TODO: реализовать токены и сессии
 // });
 
-router.post('/login',login);
-
 // router.post('/signup', (res, req) => {
 //     res.status(201).send({id_token: "must be new token"}); // TODO: сделать регистрацию.
 // });
 
-router.all('/*', mustAuthenticate);
+router.all('/*', mustAuthenticateAPI);
+
+router.get('/test',(req, res, next)=>{
+    console.log("Вызов /API/test!");
+    req.status(200).send("Усё вроде ок");
+});
 
 /*// NOTE: middleware that is specific to this router
  router.use(function timeLog(req, res, next) {
