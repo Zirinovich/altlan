@@ -27,8 +27,7 @@ export const router = express.Router();
 router.all('/*', mustAuthenticateAPI);
 
 router.get('/test',(req, res, next)=>{
-    console.log("Вызов /API/test!");
-    req.status(200).send("Усё вроде ок");
+    res.status(200).json(req.user);
 });
 
 /*// NOTE: middleware that is specific to this router

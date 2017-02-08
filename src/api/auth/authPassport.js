@@ -1,5 +1,4 @@
 import {Strategy} from 'passport-local';
-import {default as passport} from 'passport';
 
 const constUsers = [{
     username: "admin",
@@ -16,7 +15,7 @@ function findUser(username, callback) { // NOTE: Функция поиска п�
     if (!username) {
         callback({message: "Непредвиденная ошибка в хранилище пользователей(напр. в функцию не передан объект пользователя)"}, null);
     }
-    else{
+    else {
         let user = constUsers.find(user => {
             return user.username === username;
         });
@@ -24,7 +23,7 @@ function findUser(username, callback) { // NOTE: Функция поиска п�
     }
 }
 
-export function initPassport(){
+export function initPassport(passport) {
     passport.use(
         new Strategy({
             usernameField: 'login',
@@ -37,16 +36,21 @@ export function initPassport(){
                 if (!user || password !== user.password) {
                     return done(null, false, {message: "Неверная комбинация 'логин/пароль'!"})
                 }
-                console.log('Well auth');
                 return done(null, user);
             });
         })
     );
+    // NOTE: Для того, чтобы сохранять или доставать пользовательские данные из сессии, паспорт использует функции `passport.serializeUser()` и `passport.deserializeUser()`.
+    passport.serializeUser(function (user, callback) {
+        callback(null, user.username);
+    });
 
-    // NOTE: можно присвоить мидлварь для аутентификации, пример ниже
-    //passport.authenticationMiddleware = authenticationMiddleware;
+    passport.deserializeUser(function (username, callback) {
+        findUser(username, callback);
+    });
 }
-
+// NOTE: можно присвоить мидлварь для аутентификации, пример ниже
+// passport.authenticationMiddleware = authenticationMiddleware;
 // function authenticationMiddleware () {
 //     return function (req, res, next) {
 //         if (req.isAuthenticated()) {
@@ -55,15 +59,3 @@ export function initPassport(){
 //         res.redirect('/')
 //     }
 // }
-
-// NOTE: Для того, чтобы сохранять или доставать пользовательские данные из сессии, паспорт использует функции `passport.serializeUser()` и `passport.deserializeUser()`.
-passport.serializeUser(function (user, callback) {
-    console.log('call serialize user ');
-    callback(null, user.username);
-});
-
-// NOTE: смотри комментарии http://stackoverflow.com/questions/19948816/error-failed-to-serialize-user-into-session
-passport.deserializeUser(function (username, callback) {
-    console.log('call deSerialize user ' + username);
-    findUser(username, callback);
-});
