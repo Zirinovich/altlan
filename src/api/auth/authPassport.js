@@ -1,10 +1,12 @@
 import {Strategy} from 'passport-local';
 
 const constUsers = [{
+    fullName: "Иванов Иван Иваныч",
     username: "admin",
     password: "qwe123@#",
     role: "admin",
 }, {
+    fullName: "Петров Водкин Закусонович",
     username: "test",
     password: "test",
     role: "user",
@@ -26,15 +28,18 @@ function findUser(username, callback) { // NOTE: Функция поиска п�
 export function initPassport(passport) {
     passport.use(
         new Strategy({
-            usernameField: 'login',
+            usernameField: 'username',
             passwordField: 'password'
         }, (username, password, done) => {
             findUser(username, (err, user) => {
                 if (err) {
                     return done(err);
                 }
-                if (!user || password !== user.password) {
-                    return done(null, false, {message: "Неверная комбинация 'логин/пароль'!"})
+                if (!user) {
+                    return done(null, false, {username: "Данный пользователь не зарегистрирован."}); // формат ошибки как для SubmissionError {fieldName: ErrorMessage}
+                }
+                if(user.password !== password){
+                    return done(null, false, {password: "Неверный пароль. Повторите попытку."}); // формат ошибки для как SubmissionError {fieldName: ErrorMessage}
                 }
                 return done(null, user);
             });

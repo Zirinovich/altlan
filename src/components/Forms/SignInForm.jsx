@@ -6,38 +6,35 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
 
-const renderField = ({touched, id, error, placeholder, size, ...props}) => {
-    return (
-        <FormGroup controlId={id} bsSize={size}>
-            <ControlLabel>{placeholder}</ControlLabel>
-            <input {...props}/>
-            {/*<FormControl {...props}>
-                {touched && error && <HelpBlock>{error}</HelpBlock>}
-            </FormControl>*/}
-        </FormGroup>
-    );
-};
+const renderField = ({input, label, type, meta: {touched, error}}) => (
+    <div>
+        <label>{label}</label>
+        <div>
+            <input {...input} placeholder={label} type={type}/>
+            {touched && error && <span>{error}</span>}
+        </div>
+    </div>
+);
 
 class SignInForm extends Component {
     render() {
-        const {handleSubmit, submitting, method, action} = this.props;
-
+        const {handleSubmit, submitting, method, action, error} = this.props;
         return (
             <div>
-                {/*<form action={action} method={method} onSubmit={handleSubmit}>*/}
-                <form action={action} method={method}>
+                <form action={action} method={method} onSubmit={handleSubmit}>
                     <Field
-                        name="login"
+                        name="username"
                         type="text"
-                        component="input"
-                        placeholder="Login"
+                        component={renderField}
+                        label="Login"
                     />
                     <Field
                         name="password"
                         type="password"
-                        component="input"
-                        placeholder="Password"
+                        component={renderField}
+                        label="Password"
                     />
+                    {error && <strong>{error}</strong>}
                     <div>
                         <Button type="submit" disabled={submitting}>Войти</Button>
                     </div>
