@@ -24,20 +24,18 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-init(passport);
-let client = createClient();
+// let client = createClient();
 app.use(session({
     store: new RedisStore({
         host: 'localhost',
-        port: 6379,
-        client: client
+        port: 6379/*,
+        client: client*/
     }),
     secret: 'yaouyahanSecretWord',
-    cookie: { secure: false, maxAge:86400000 },
     resave: false,
     saveUninitialized: false
 }));
-
+init(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 

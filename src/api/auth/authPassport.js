@@ -47,10 +47,12 @@ export function initPassport(passport) {
     );
     // NOTE: Для того, чтобы сохранять или доставать пользовательские данные из сессии, паспорт использует функции `passport.serializeUser()` и `passport.deserializeUser()`.
     passport.serializeUser(function (user, callback) {
+        console.log(user);
         callback(null, user.username);
     });
 
     passport.deserializeUser(function (username, callback) {
+        // console.log(username);
         findUser(username, callback);
     });
 }

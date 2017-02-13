@@ -42,5 +42,6 @@ export function mustAuthenticate(req, res, next) {
 
 // middleware
 export function mustAuthenticateAPI(req, res, next) {
+    console.log("Запрос аутентиф-н: "+req.isAuthenticated());
     req.isAuthenticated() ? next() : res.status(401).json({message: "Authorization required!"});
 }
