@@ -28,6 +28,14 @@ export function loginAPI(req, res, next) {
     })(req, res, next);
 }
 
+export function loginRestoreAPI(req, res, next) {
+    console.log(req.user);
+    if (req.user){
+        return res.json({account: req.user});
+    }
+    return res.json({empty: 'none'});
+}
+
 export function login(req, res, next) {
     passport.authenticate('local', {
         successRedirect: '/',

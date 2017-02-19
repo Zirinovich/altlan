@@ -31,6 +31,23 @@ export function requestLogin(credentials, dispatch) {
         });
 }
 
+export function restoreLogin() {
+    fetch('/api/login', {
+        method: 'POST',
+        credentials: 'same-origin'
+    })
+        .then(res => res.json())
+        .then(json => {
+            if (!json.errors) {
+                return json.account;
+            }
+            return null;
+        })
+        .catch(err => {
+            return null;
+        });
+}
+
 export function loginSuccess(user, dispatch) {
     dispatch({
         type: LOGIN_SUCCESS,
