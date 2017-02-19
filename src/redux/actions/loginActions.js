@@ -38,6 +38,7 @@ function loginError(message) {
 export function requestLogin(credentials, dispatch) {
     return fetch('/loginAPI', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },

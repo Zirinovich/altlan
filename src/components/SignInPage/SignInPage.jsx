@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/lib/Button';
 
 const test = function () {
     fetch('api/test', {
-        method: 'GET'
+        method: 'GET',
+        credentials: 'same-origin'
     })
 };
 
