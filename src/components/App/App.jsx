@@ -3,11 +3,13 @@ import Grid  from 'react-bootstrap/lib/Grid';
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem  from 'react-bootstrap/lib/NavItem';
-// import HelloWorldPage from 'components/HelloWorldPage';
+
 import './bootstrap.css';
 
 import {Link} from 'react-router';
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
+
+import {connect} from 'react-redux';
 
 const propTypes = {
     children: PropTypes.node
@@ -15,6 +17,8 @@ const propTypes = {
 
 class App extends Component {
     render() {
+        const {account} = this.props;
+
         return (
             <div>
                 <Navbar>
@@ -32,10 +36,20 @@ class App extends Component {
                             <LinkContainer to='/counters'>
                                 <NavItem>Счетчики</NavItem>
                             </LinkContainer>
-                            <LinkContainer to='/login'>
-                                <NavItem>Вход</NavItem>
-                            </LinkContainer>
+
                         </Nav>
+                        <Nav pullRight>
+                            {
+                                account ?
+                                    <LinkContainer to='/login'>
+                                        <NavItem>Выйти</NavItem>
+                                    </LinkContainer> :
+                                    <LinkContainer to='/login'>
+                                        <NavItem>Вход</NavItem>
+                                    </LinkContainer>
+                            }
+                        </Nav>
+                        {account && <Navbar.Text pullRight>{account.fullName}</Navbar.Text>}
                     </Navbar.Collapse>
                 </Navbar>
                 <Grid>
@@ -48,4 +62,9 @@ class App extends Component {
 
 App.propTypes = propTypes;
 
-export default App;
+function mapStateToProps(state) {
+    const {account} = state;
+    return {account};
+}
+
+export default connect(mapStateToProps)(App);
