@@ -10,6 +10,7 @@ import {Link} from 'react-router';
 import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 
 import {connect} from 'react-redux';
+import {logout} from 'redux/actions/loginActions'
 
 const propTypes = {
     children: PropTypes.node
@@ -17,7 +18,7 @@ const propTypes = {
 
 class App extends Component {
     render() {
-        const {account} = this.props;
+        const {account, dispatch} = this.props;
 
         return (
             <div>
@@ -41,9 +42,10 @@ class App extends Component {
                         <Nav pullRight>
                             {
                                 account ?
-                                    <LinkContainer to='/login'>
-                                        <NavItem>Выйти</NavItem>
-                                    </LinkContainer> :
+                                    <NavItem onClick={() => {
+                                        logout(dispatch)
+                                    }}>Выйти</NavItem>
+                                    :
                                     <LinkContainer to='/login'>
                                         <NavItem>Вход</NavItem>
                                     </LinkContainer>

@@ -29,11 +29,15 @@ export function loginAPI(req, res, next) {
 }
 
 export function loginRestoreAPI(req, res, next) {
-    console.log(req.user);
-    if (req.user){
+    if (req.user) {
         return res.json({account: req.user});
     }
     return res.json({empty: 'none'});
+}
+
+export function logoutAPI(req, res, next) {
+    req.logout();
+    return res.json({result: 'ok'});
 }
 
 export function login(req, res, next) {
@@ -50,6 +54,6 @@ export function mustAuthenticate(req, res, next) {
 
 // middleware
 export function mustAuthenticateAPI(req, res, next) {
-    console.log("Запрос аутентиф-н: "+req.isAuthenticated());
+    console.log("Запрос аутентиф-н: " + req.isAuthenticated());
     req.isAuthenticated() ? next() : res.status(401).json({message: "Authorization required!"});
 }

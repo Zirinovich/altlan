@@ -1,5 +1,5 @@
 import express from 'express';
-import {mustAuthenticateAPI, loginRestoreAPI} from 'api';
+import {mustAuthenticateAPI, loginRestoreAPI, logoutAPI} from 'api';
 
 export const router = express.Router();
 
@@ -27,6 +27,7 @@ export const router = express.Router();
 router.all('/*', mustAuthenticateAPI);
 
 router.post('/login', loginRestoreAPI);
+router.post('/logout', logoutAPI);
 
 router.get('/test',(req, res, next)=>{
     res.status(200).json(req.user);

@@ -5,7 +5,8 @@ import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
-    LOGOUT = 'LOGOUT_REQUEST';
+    LOGOUT = 'LOGOUT_REQUEST',
+    LOGIN_RESTORE = 'LOGIN_RESTORE';
 
 export function requestLogin(credentials, dispatch) {
     return fetch('/loginAPI', {
@@ -32,7 +33,7 @@ export function requestLogin(credentials, dispatch) {
 }
 
 export function restoreLogin() {
-    fetch('/api/login', {
+    return fetch('/api/login', {
         method: 'POST',
         credentials: 'same-origin'
     })
@@ -44,7 +45,7 @@ export function restoreLogin() {
             return null;
         })
         .catch(err => {
-            return null;
+            return null
         });
 }
 
@@ -56,15 +57,14 @@ export function loginSuccess(user, dispatch) {
     browserHistory.push('/');
 }
 
-export function logout() {
-    return (dispatch) => {
-        fetch('/api/logout', {
-            method: 'POST',
-            credentials: 'same-origin'
-        })
-            .then(res => dispatch({
-                type: LOGOUT,
-                account: null
-            }));
-    }
+export function logout(dispatch) {
+    fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'same-origin'
+    })
+        .then(res => dispatch({
+            type: LOGOUT,
+            account: null
+        }));
+    browserHistory.push('/login');
 }

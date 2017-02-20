@@ -1,10 +1,6 @@
-import {LOGIN_SUCCESS, LOGOUT, restoreLogin} from 'redux/actions/loginActions';
+import {LOGIN_SUCCESS, LOGOUT} from 'redux/actions/loginActions';
 
-const initialState = (() => {
-    var account = restoreLogin();
-    console.log(account);
-    return null
-})();
+const initialState = null;
 
 export default function (state = initialState, action) {
     switch (action.type) {
