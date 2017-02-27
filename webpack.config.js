@@ -7,7 +7,8 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var publicPath         = 'http://localhost:8080/public/assets';
 var cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
-var jsName             = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
+
+const IS_PRODUCTION = (process.env.NODE_ENV === 'production');
 
 var plugins = [
     new webpack.DefinePlugin({
@@ -36,9 +37,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-    entry: ['babel-polyfill', './src/client.js'],
+    // если добавить параметр context: __dirname + './src'
+    // то можно писать entry: './client.js', это удобно при множестве точек входа
+    entry: {
+        bundle: ['babel-polyfill', './src/client.js']
+    },
     debug: process.env.NODE_ENV !== 'production',
-    resolve: {
+    resolve: {                                                  // настройки того, где webpack будет искать модули
         root:               path.join(__dirname, 'src'),
         modulesDirectories: ['node_modules'],
         extensions:         ['', '.js', '.jsx']
@@ -46,7 +51,7 @@ module.exports = {
     plugins,
     output: {
         path: `${__dirname}/public/assets/`,
-        filename: jsName,
+        filename: IS_PRODUCTION ? "[name]-[hash].js" : "[name].js",
         publicPath
     },
     module: {
@@ -64,7 +69,6 @@ module.exports = {
             { test: /\.png$/, loader: 'url-loader?limit=10000&mimetype=image/png' },
             { test: /\.svg/, loader: 'url-loader?limit=26000&mimetype=image/svg+xml' },
             { test: /\.(woff|woff2|ttf|eot)/, loader: 'url-loader?limit=1' },
-            // { test: /\.jsx?$/, loader: 'babel', exclude: [/node_modules/, /public/] },
             { test: /\.jsx?$/, loader: 'babel', exclude: [/node_modules/, /public/] },
             { test: /\.json$/, loader: 'json-loader' },
         ]
