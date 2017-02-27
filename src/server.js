@@ -29,7 +29,7 @@ app.use(session({
     store: new RedisStore({
         host: 'localhost',
         port: 6379/*,
-        client: client*/
+         client: client*/
     }),
     secret: 'yaouyahanSecretWord',
     resave: false,
@@ -40,11 +40,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('/loginAPI', loginAPI);
+// app.use('/loginAPI', loginAPI);
 app.use('/API', apiRouter);
 
 app.use((req, res) => {
-    const store = configureStore();
+    const store = configureStore(req.user ? {account: req.user} : {});
     const state = store.getState(); // функция возвращает актуальное глобальное состояние хранилища
 
     match({routes, location: req.url}, (error, redirectLocation, renderProps) => { // функция match принимает в качестве первого параметра JavaScript объект с ключами routes и location { routes: routes, location: req.url}

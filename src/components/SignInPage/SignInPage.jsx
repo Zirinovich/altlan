@@ -14,7 +14,7 @@ class _SignInPage extends Component {
     render() {
         return (
             <div>
-                <SignInForm action="/loginapi" method="POST" onSubmit={requestLogin}
+                <SignInForm action="/login" method="POST" onSubmit={requestLogin}
                             onSubmitSuccess={loginSuccess}/>
                 <br/>
                 <Button onClick={test}>Тест</Button>

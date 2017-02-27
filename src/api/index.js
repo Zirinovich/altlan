@@ -3,12 +3,6 @@ import {default as passport} from 'passport';
 
 export {initPassport as init};
 
-// TODO: так же нужен logoutAPI, аналогичный login
-export function logout(req, res) {
-    req.logout();
-    res.redirect('/')
-}
-
 export function loginAPI(req, res, next) {
     passport.authenticate('local', (err, user, info) => { // err - ошибка в случае ошибки модулей; user - {obj}|false; info - информация если юзер false
         if (err) {
@@ -28,13 +22,6 @@ export function loginAPI(req, res, next) {
     })(req, res, next);
 }
 
-export function loginRestoreAPI(req, res, next) {
-    if (req.user) {
-        return res.json({account: req.user});
-    }
-    return res.json({empty: 'none'});
-}
-
 export function logoutAPI(req, res, next) {
     req.logout();
     return res.json({result: 'ok'});
@@ -48,12 +35,6 @@ export function login(req, res, next) {
 }
 
 // middleware
-export function mustAuthenticate(req, res, next) {
-    req.isAuthenticated() ? next() : res.redirect('/login');
-}
-
-// middleware
-export function mustAuthenticateAPI(req, res, next) {
-    console.log("Запрос аутентиф-н: " + req.isAuthenticated());
+export function mustAuthenticateAPIMiddleware(req, res, next) {
     req.isAuthenticated() ? next() : res.status(401).json({message: "Authorization required!"});
 }

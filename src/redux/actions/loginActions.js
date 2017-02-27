@@ -5,11 +5,10 @@ import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
-    LOGOUT = 'LOGOUT_REQUEST',
-    LOGIN_RESTORE = 'LOGIN_RESTORE';
+    LOGOUT = 'LOGOUT_REQUEST';
 
 export function requestLogin(credentials, dispatch) {
-    return fetch('/loginAPI', {
+    return fetch('/api/login', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -29,23 +28,6 @@ export function requestLogin(credentials, dispatch) {
                 throw err;
             }
             throw new SubmissionError({_error: err.message});
-        });
-}
-
-export function restoreLogin() {
-    return fetch('/api/login', {
-        method: 'POST',
-        credentials: 'same-origin'
-    })
-        .then(res => res.json())
-        .then(json => {
-            if (!json.errors) {
-                return json.account;
-            }
-            return null;
-        })
-        .catch(err => {
-            return null
         });
 }
 
