@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import * as React from 'react';
 import Grid  from 'react-bootstrap/lib/Grid';
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
@@ -12,12 +12,8 @@ import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 import {connect} from 'react-redux';
 import {logout} from 'redux/actions/loginActions'
 
-const propTypes = {
-    children: PropTypes.node
-};
-
-class App extends Component {
-    render() {
+export class App extends React.Component<any,any>{
+    public render() {
         const {account, dispatch} = this.props;
 
         return (
@@ -42,9 +38,7 @@ class App extends Component {
                         <Nav pullRight>
                             {
                                 account ?
-                                    <NavItem onClick={() => {
-                                        logout(dispatch)
-                                    }}>Выйти</NavItem>
+                                    <NavItem onClick={() => { logout(dispatch) }}>Выйти</NavItem>
                                     :
                                     <LinkContainer to='/login'>
                                         <NavItem>Вход</NavItem>
@@ -61,8 +55,6 @@ class App extends Component {
         );
     }
 }
-
-App.propTypes = propTypes;
 
 function mapStateToProps(state) {
     const {account} = state;

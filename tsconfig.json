@@ -4,12 +4,15 @@
     "target": "es6",
     "sourceMap": true,
     "jsx": "react",
+    "baseUrl": ".",
     "paths": {
       "*": [
-        "src/*",
-        "src/redux/*"
+        "src/*"
       ]
-    }
+    },
+    "moduleResolution": "node",
+    "allowJs": true,
+    "useBabel": true
   },
   "exclude": [
     "node_modules",
