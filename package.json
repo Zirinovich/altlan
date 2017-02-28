@@ -47,10 +47,19 @@
     "tedious": "^1.14.0"
   },
   "devDependencies": {
+    "@types/isomorphic-fetch": "0.0.33",
+    "@types/react": "^15.0.13",
+    "@types/react-dom": "^0.14.23",
+    "@types/redux": "^3.6.0",
+    "@types/redux-devtools": "^3.0.37",
+    "@types/redux-devtools-dock-monitor": "^1.1.30",
+    "@types/redux-devtools-log-monitor": "^1.0.30",
+    "@types/redux-thunk": "^2.1.0",
+    "awesome-typescript-loader": "^3.0.8",
     "babel-loader": "^6.2.10",
     "clean-webpack-plugin": "^0.1.15",
     "css-loader": "^0.26.1",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.4",
     "json-loader": "^0.5.4",
@@ -62,9 +71,11 @@
     "redux-devtools": "^3.3.2",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.2.0",
+    "source-map-loader": "^0.1.6",
     "style-loader": "^0.13.1",
+    "typescript": "^2.2.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
   }
 }

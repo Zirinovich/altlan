@@ -11,6 +11,7 @@ var cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].
 const IS_PRODUCTION = (process.env.NODE_ENV === 'production');
 
 var plugins = [
+    new webpack.LoaderOptionsPlugin({ debug: !IS_PRODUCTION}),
     new webpack.DefinePlugin({
         'process.env': {
             BROWSER:  JSON.stringify(true),
@@ -42,11 +43,12 @@ module.exports = {
     entry: {
         bundle: ['babel-polyfill', './src/client.js']
     },
-    debug: process.env.NODE_ENV !== 'production',
-    resolve: {                                                  // настройки того, где webpack будет искать модули
-        root:               path.join(__dirname, 'src'),
-        modulesDirectories: ['node_modules'],
-        extensions:         ['', '.js', '.jsx']
+    resolve: {  // настройки того, где webpack будет искать модули
+        modules: [
+            path.join(__dirname, 'src'),
+            "node_modules"
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
     },
     plugins,
     output: {
@@ -55,21 +57,22 @@ module.exports = {
         publicPath
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
+                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader'})
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader')
+                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader!less-loader'})
             },
             { test: /\.gif$/, loader: 'url-loader?limit=10000&mimetype=image/gif' },
             { test: /\.jpg$/, loader: 'url-loader?limit=10000&mimetype=image/jpg' },
             { test: /\.png$/, loader: 'url-loader?limit=10000&mimetype=image/png' },
             { test: /\.svg/, loader: 'url-loader?limit=26000&mimetype=image/svg+xml' },
             { test: /\.(woff|woff2|ttf|eot)/, loader: 'url-loader?limit=1' },
-            { test: /\.jsx?$/, loader: 'babel', exclude: [/node_modules/, /public/] },
+            { test: /\.tsx?$/, loader: 'awesome-typescript-loader'},
+            { test: /\.jsx?$/, loader: 'babel-loader', exclude: [/node_modules/, /public/] },
             { test: /\.json$/, loader: 'json-loader' },
         ]
     },
