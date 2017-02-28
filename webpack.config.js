@@ -48,7 +48,10 @@ module.exports = {
             path.join(__dirname, 'src'),
             "node_modules"
         ],
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx']/*,
+        alias:{
+            redux: __dirname+"/src/redux"
+        }*/
     },
     plugins,
     output: {
@@ -71,7 +74,7 @@ module.exports = {
             { test: /\.png$/, loader: 'url-loader?limit=10000&mimetype=image/png' },
             { test: /\.svg/, loader: 'url-loader?limit=26000&mimetype=image/svg+xml' },
             { test: /\.(woff|woff2|ttf|eot)/, loader: 'url-loader?limit=1' },
-            { test: /\.tsx?$/, loader: 'awesome-typescript-loader'},
+            { test: /\.tsx?$/, loader: ['babel-loader','awesome-typescript-loader']},
             { test: /\.jsx?$/, loader: 'babel-loader', exclude: [/node_modules/, /public/] },
             { test: /\.json$/, loader: 'json-loader' },
         ]

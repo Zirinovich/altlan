@@ -90,6 +90,9 @@ build/Release
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 
+#TypeScript some shit
+.awcache/*
+
 # Gradle:
 .idea/gradle.xml
 .idea/libraries

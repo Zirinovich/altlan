@@ -47,7 +47,9 @@
     "tedious": "^1.14.0"
   },
   "devDependencies": {
+    "@types/es6-shim": "^0.31.32",
     "@types/isomorphic-fetch": "0.0.33",
+    "@types/node": "^7.0.5",
     "@types/react": "^15.0.13",
     "@types/react-dom": "^0.14.23",
     "@types/redux": "^3.6.0",
@@ -55,6 +57,7 @@
     "@types/redux-devtools-dock-monitor": "^1.1.30",
     "@types/redux-devtools-log-monitor": "^1.0.30",
     "@types/redux-thunk": "^2.1.0",
+    "@types/webpack": "^2.2.7",
     "awesome-typescript-loader": "^3.0.8",
     "babel-loader": "^6.2.10",
     "clean-webpack-plugin": "^0.1.15",
