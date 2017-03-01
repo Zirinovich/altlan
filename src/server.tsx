@@ -1,20 +1,20 @@
-import express  from 'express';
-import React    from 'react';
-import ReactDom from 'react-dom/server';
+let express  = require('express');
+import * as React    from 'react';
+import * as ReactDom from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 import routes from './routes';
 
 import {Provider} from 'react-redux';
-import configureStore from './redux/configureStore';
+const configureStore = require('./redux/configureStore');
 
 import * as bodyParser from 'body-parser';
-import {default as cookieParser} from 'cookie-parser';
-import session from 'express-session';
-import {default as redis} from 'connect-redis';
-import {createClient} from 'redis';
+import * as cookieParser from 'cookie-parser';
+const session = require('express-session');
+const redis = require('connect-redis');
+/*import {createClient} from 'redis';*/
 
-import {default as passport} from 'passport';
-import {init, loginAPI} from 'api';
+const passport = require('passport');
+import {init/*, loginAPI*/} from 'api';
 
 import {router as apiRouter} from 'routesAPI';
 

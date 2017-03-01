@@ -53,7 +53,7 @@ module.exports = {
     // то можно писать entry: './client.js', это удобно при множестве точек входа
     entry: {
         /*bundle: ['babel-polyfill', './src/client.js'],*/
-        server: ['./server.js']
+        server: ['./server.ts']
     },
     resolve: {  // настройки того, где webpack будет искать модули
         modules: [
