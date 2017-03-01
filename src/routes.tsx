@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import {IndexRoute, Route}  from 'react-router';
-import App from 'components/App';
-import CounterPage from 'components/CounterPage';
-import HelloWorldPage from 'components/HelloWorldPage';
+import {App} from 'components/App';
+import {CounterPage} from 'components/CounterPage';
+import {HelloWorldPage} from 'components/HelloWorldPage';
 import TimePage from 'components/TimePage';
-import SignInPage from 'components/SignInPage';
+import {SignInPage} from 'components/SignInPage';
 
 export default (<Route component={App} path='/'>
     <IndexRoute component={HelloWorldPage}/>

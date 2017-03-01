@@ -5,7 +5,7 @@ import {match, RouterContext} from 'react-router';
 import routes from './routes';
 
 import {Provider} from 'react-redux';
-const configureStore = require('./redux/configureStore');
+const configureStore = require('./redux/configureStore').default;
 
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';

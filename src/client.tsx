@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM   from 'react-dom';
 import routes from './routes';
 import {Provider} from 'react-redux';
-let configureStore = require('./redux/configureStore');
+let configureStore = require('./redux/configureStore').default;
 
-import {default as DevTools} from 'components/DevTools';
+let DevTools = require('components/DevTools').default;
 import Router from "react-router/lib/Router";
 import browserHistory from "react-router/lib/browserHistory";
 // redux инструменты разработчика
