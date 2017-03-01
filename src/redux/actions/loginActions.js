@@ -1,8 +1,8 @@
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 import {default as formData} from 'form-urlencoded';
 import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
     LOGOUT = 'LOGOUT_REQUEST';
@@ -17,7 +17,7 @@ export function requestLogin(credentials, dispatch) {
         body: formData(credentials)
     })
         .then(res => res.json())
-        .then((json: any) => {
+        .then(json => {
             if (!json.errors) {
                 return json.account;
             }
@@ -50,4 +50,3 @@ export function logout(dispatch) {
         }));
     browserHistory.push('/login');
 }
-

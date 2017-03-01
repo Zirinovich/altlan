@@ -34,14 +34,14 @@ if (process.env.NODE_ENV === 'production') {
         })
     );
     plugins.push(new webpack.optimize.DedupePlugin());
-    plugins.push(new webpack.optimize.OccurenceOrderPlugin());
+    plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
 }
 
 module.exports = {
     // если добавить параметр context: __dirname + './src'
     // то можно писать entry: './client.js', это удобно при множестве точек входа
     entry: {
-        bundle: ['babel-polyfill', './src/client.js']
+        bundle: ['babel-polyfill', './src/client.tsx']
     },
     resolve: {  // настройки того, где webpack будет искать модули
         modules: [
@@ -52,8 +52,7 @@ module.exports = {
         alias:{
             redux: __dirname+"/src/redux"
         }*/
-    },
-    plugins,
+    },plugins,
     output: {
         path: `${__dirname}/public/assets/`,
         filename: IS_PRODUCTION ? "[name]-[hash].js" : "[name].js",
@@ -79,7 +78,7 @@ module.exports = {
             { test: /\.json$/, loader: 'json-loader' },
         ]
     },
-    devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : null,
+    devtool: !IS_PRODUCTION ? 'source-map' : false,
     devServer: {
         headers: { 'Access-Control-Allow-Origin': '*' }
     }

@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "sourceMap": true,
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "*": [
@@ -8,18 +12,10 @@
         "src/redux/*"
       ]
     },
-    "outDir": "build",
-    "module": "commonjs",
-    "target": "es6",
-    "sourceMap": true,
-    "inlineSourceMap": false,
-    "inlineSources": false,
-    "experimentalDecorators": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "jsx": "react",
     "moduleResolution": "node",
-    "allowJs": true
+    "allowJs": true,
+    "useBabel": true,
+    "noResolve": true
   },
   "exclude": [
     "node_modules",
