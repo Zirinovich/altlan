@@ -79,7 +79,7 @@ module.exports = {
         ]
     }
     ,
-    devtool: !IS_PRODUCTION ? 'cheap-inline-module-source-map' : false,
+    devtool: !IS_PRODUCTION ? 'source-map' : false,
     devServer: {
         headers: {
             'Access-Control-Allow-Origin': '*'
